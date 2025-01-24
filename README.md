@@ -53,6 +53,7 @@ This project demonstrates how to create an Apache Airflow DAG that interacts wit
    ```bash
    pip install -r requirements.txt
    ```
+   and
    ```bash
    pip install  apache-airflow apache-airflow-providers-amazon boto3  pandas   spotipy 
    ```
