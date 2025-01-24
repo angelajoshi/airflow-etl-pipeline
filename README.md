@@ -134,10 +134,12 @@ This project demonstrates how to create an Apache Airflow DAG that interacts wit
 
 
 5. **Logging**
+```bash
 [logging]
 remote_logging = True
 remote_log_conn_id = aws_default  # Use the Airflow connection ID for AWS
 remote_base_log_folder = s3://your-bucket-name/airflow-logs/  # Your S3 bucket path
+```
 config 
    
 ## Usage
