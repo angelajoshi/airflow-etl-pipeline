@@ -31,6 +31,7 @@ This project demonstrates how to create an Apache Airflow DAG that interacts wit
 - Spotipy (optional, for Spotify integration)
 - Pdfminer (optional, for PDF extraction)
 
+
 ## Installation
 
 1. **Clone the repository:**
@@ -131,6 +132,14 @@ This project demonstrates how to create an Apache Airflow DAG that interacts wit
        start_task >> s3_sensor
    ```
 
+
+5. **Logging**
+[logging]
+remote_logging = True
+remote_log_conn_id = aws_default  # Use the Airflow connection ID for AWS
+remote_base_log_folder = s3://your-bucket-name/airflow-logs/  # Your S3 bucket path
+config 
+   
 ## Usage
 
 1. **Start the Airflow web server:**
