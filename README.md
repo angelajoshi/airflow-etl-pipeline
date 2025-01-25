@@ -34,21 +34,157 @@ This project demonstrates how to create an Apache Airflow DAG that interacts wit
 
 ## Installation
 
-1. **Clone the repository:**
+Here's a sample **README** file for setting up Apache Airflow on Ubuntu (WSL) using a virtual environment. You can use this for your GitHub repository to guide others through the installation process.
 
+---
+
+
+
+
+
+
+
+
+
+
+# Apache Airflow Setup on Ubuntu (WSL)
+
+This README describes how to set up Apache Airflow in a virtual environment on Ubuntu through **Windows Subsystem for Linux (WSL)**.
+
+### Prerequisites:
+- **WSL (Windows Subsystem for Linux)** installed on your machine.
+- **Ubuntu** distribution installed on WSL.
+- **Python 3** installed.
+
+### Steps to Install Apache Airflow:
+
+#### 1. **Update System Packages**
+Run the following commands to update your system:
+```bash
+sudo apt update
+sudo apt upgrade
+```
+
+#### 2. **Install PIP (Python Package Installer)**
+To install Python packages, you will first need to install pip:
+```bash
+sudo apt-get install software-properties-common
+sudo apt-add-repository universe
+sudo apt-get update
+sudo apt-get install python-setuptools
+sudo apt install python3-pip
+```
+
+#### 3. **Update WSL Configuration**
+Make sure WSL can work properly with file mounts. Run:
+```bash
+sudo nano /etc/wsl.conf
+```
+
+Add the following lines to the file:
+```ini
+[automount]
+root = /
+options = "metadata"
+```
+
+Save and exit the file (`Ctrl + S`, then `Ctrl + X`).
+
+#### 4. **Set Airflow Home Directory**
+Decide on the location for your Airflow home directory. For example, you can set it to a directory under your Documents in Windows.
+
+Run:
+```bash
+nano ~/.bashrc
+```
+
+Add the following line to the file:
+```bash
+export AIRFLOW_HOME=/mnt/c/users/YOURNAME/documents/airflow
+```
+
+Make sure to replace `YOURNAME` with your actual Windows username. Save and exit the file (`Ctrl + S`, then `Ctrl + X`).
+
+#### 5. **Install Virtualenv**
+Next, install **virtualenv** to create a Python virtual environment:
+```bash
+sudo apt install python3-virtualenv
+```
+
+#### 6. **Create and Activate the Virtual Environment**
+Now, create a virtual environment named `airflow_env` and activate it:
+```bash
+virtualenv airflow_env
+source airflow_env/bin/activate
+```
+
+#### 7. **Install Apache Airflow**
+With the virtual environment activated, install Apache Airflow using `pip`:
+```bash
+pip install apache-airflow
+```
+
+#### 8. **Verify Airflow Installation**
+To ensure that Airflow was installed successfully, run:
+```bash
+airflow info
+```
+
+If there are any errors or missing dependencies, install them as required.
+
+#### 9. **Initialize the Airflow Database**
+By default, Apache Airflow uses SQLite as its database. To initialize the Airflow database, run:
+```bash
+airflow db init
+```
+
+#### 10. **Start Airflow Web Server and Scheduler**
+To start the Airflow web server and scheduler, run the following commands in two different terminal windows:
+
+1. **Start the web server** (default port: 8080):
    ```bash
-   git clone https://github.com/your-username/airflow-aws-s3-integration.git
-   cd airflow-aws-s3-integration
+   airflow webserver --port 8080
    ```
 
-2. **Create a virtual environment:**
-
+2. **Start the scheduler**:
    ```bash
-   python3 -m venv airflow_env
-   source airflow_env/bin/activate
+   airflow scheduler
    ```
 
-3. **Install required dependencies:**
+#### 11. **Access Airflow Web UI**
+Once the web server is running, you can access the Airflow Web UI by navigating to the following URL in your browser:
+```
+http://localhost:8080
+```
+
+Log in using the default credentials (user: `airflow`, password: `airflow`).
+
+---
+
+### Troubleshooting
+
+- **Missing dependencies**: If `airflow info` shows missing dependencies, run the following to install them:
+  ```bash
+  pip install apache-airflow[extra]
+  ```
+  Replace `[extra]` with any additional dependencies like `[aws]` for AWS or `[postgres]` for PostgreSQL.
+
+- **WSL Filesystem Issues**: If you encounter issues with file paths, try restarting the WSL instance or adjusting your WSL configuration.
+
+---
+
+### Additional Notes
+- Apache Airflow runs on **Python 3.7+**, so ensure your Python version is up to date.
+- Airflow's default **SQLite** database is suitable for small setups. For production use, consider configuring **PostgreSQL** or **MySQL** as the backend database.
+
+---
+
+By following the steps in this README, you should be able to set up Apache Airflow on your Ubuntu WSL instance and start using it for managing your workflows.
+
+
+
+
+4. **Install required dependencies:**
 
    ```bash
    pip install -r requirements.txt
@@ -66,18 +202,9 @@ This project demonstrates how to create an Apache Airflow DAG that interacts wit
    - spotipy
    
    
-
 ## Setup
 
-1. **Airflow Setup:**
-
-   - Initialize the Airflow database if this is your first time using Airflow:
-
-     ```bash
-     airflow db init
-     ```
-
-2. **Configure AWS credentials:**
+1. **Configure AWS credentials:**
 
    - Add AWS credentials in the Airflow Connections UI or via the command line:
 
